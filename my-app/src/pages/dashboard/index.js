@@ -1,6 +1,11 @@
 import logo from '../../assets/imgs/logo.svg';
 import '../../assets/css/app.css';
 
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { actionCreators as AccountActions } from '../../stores/reducers/account';
+import { actionCreators as TeamActions } from '../../stores/reducers/team';
+
 function Dashboard() {
   return (
     <div className="Dashboard">
@@ -22,4 +27,13 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+const mapStateToProp = (state) => ({
+  me: state.account.me,
+  team: state.teams.team,
+  ...state.teams
+});
+
+export default connect(
+  mapStateToProp,
+  dispatch => bindActionCreators({ ...AccountActions, ...TeamActions }, dispatch)
+)(Dashboard);

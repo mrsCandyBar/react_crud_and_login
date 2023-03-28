@@ -1,6 +1,11 @@
 import logo from '../../assets/imgs/logo.svg';
 import '../../assets/css/app.css';
 
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { actionCreators } from '../../stores/reducers/account';
+
+
 function Login() {
   return (
     <div className="Login">
@@ -22,4 +27,7 @@ function Login() {
   );
 }
 
-export default Login;
+export default connect(
+  (state) => ({ me: state.account.me }),
+  dispatch => bindActionCreators(actionCreators, dispatch)
+)(Login);
