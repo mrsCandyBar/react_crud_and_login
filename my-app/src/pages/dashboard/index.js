@@ -1,29 +1,28 @@
-import logo from '../../assets/imgs/logo.svg';
+import React, { useState } from 'react';
 import '../../assets/css/app.css';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { actionCreators as AccountActions } from '../../stores/reducers/account';
 import { actionCreators as TeamActions } from '../../stores/reducers/team';
+import { Container, Row, Col } from 'reactstrap';
 
 function Dashboard() {
+  const [team, setTeamList] = useState('');
+
   return (
-    <div className="Dashboard">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <h1>Team Table</h1>
+
+      {team.map((teamMember, index) => {
+        return (
+          <Row key={"user_" + index} className='form-row'>
+            <Col md={6}>{teamMember.fullname}</Col>
+            <Col md={6}>{teamMember.location}</Col>
+          </Row>
+        )
+      })}
+    </Container>
   );
 }
 
